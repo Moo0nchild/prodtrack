@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "661428243721",
+    "project_id": "prodtrack-4a5e6",
+    "storage_bucket": "prodtrack-4a5e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661428243721:android:47932a96b3a4a812a797d8",
+        "android_client_info": {
+          "package_name": "com.prodtrack.prodtrack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm7hJujZ-JZ92QWSmaJ7KVVdnH84X8jp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
