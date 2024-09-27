@@ -1,8 +1,7 @@
 
 import 'package:prodtrack/models/Box.dart';
 import 'package:prodtrack/models/Packing.dart';
-
-import 'package:prodtrack/models/Input.dart';
+import 'package:prodtrack/models/inputDTO.dart';
 
 class Product {
   final String name;
@@ -10,18 +9,18 @@ class Product {
   final Box box;
   final int quantity; //Cantidad de unidades del producto fabricado
   final Packing packing; //  de envase
-  final List<Input> inputs; 
+  final List<InputDTO> inputsDTO; 
   final double priceLabel;  //Precio de etiqueta
   final double priceLabeled;  //Precio de etiquetado
 
 
-  Product(this.name, this.description, this.quantity,this.packing,this.box,  this.inputs, this.priceLabel, this.priceLabeled);
+  Product(this.name, this.description, this.quantity,this.packing,this.box,  this.inputsDTO, this.priceLabel, this.priceLabeled);
 
 
  //Precio total del producto fabricado (ejemplo: 140 Litros de esencia de kola valen $500.000)
   get _totalPriceInput{ 
     double totalPriceProduct = 0.0;
-    inputs.forEach((input){
+    inputsDTO.forEach((input){
       totalPriceProduct += input.totalPrice;
     });
     return  totalPriceProduct;
@@ -30,8 +29,8 @@ class Product {
  //Total del producto fabricado (ejemplo: 140 Litros de esencia de kola)
   get _totalQuantityInput{ 
     double totalQuantityProduct = 0.0;
-    inputs.forEach((input){
-      totalQuantityProduct += input.quantity;
+    inputsDTO.forEach((input){
+      totalQuantityProduct += input.quantityUsed;
     });
     return  totalQuantityProduct;
   }
@@ -56,5 +55,8 @@ class Product {
     return priceBoxProduct;
   }
 
+  get unitPrice {
+    return boxPrice / box.ability;
+  }
 
 }
