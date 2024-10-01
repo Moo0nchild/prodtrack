@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prodtrack/pages/supplier_pages/supplier_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -53,61 +54,36 @@ class HomePage extends StatelessWidget {
             child: GridView.count(
               crossAxisCount: 2,
               children: [
-                menuButton(context, 'INVENTARIO', Icons.warehouse, Colors.blue),
-                menuButton(
-                    context, 'INGREDIENTES', Icons.filter_alt, Colors.green),
-                menuButton(
-                    context, 'PROVEEDORES', Icons.business, Colors.orange),
-                menuButton(context, 'FACTURAS', Icons.receipt, Colors.red),
+                  menuButton(context, 'INVENTARIO', Icons.warehouse, Colors.blue, SupplierView()),
+                  menuButton(context, 'INGREDIENTES', Icons.filter_alt, Colors.green, SupplierView()),
+                  menuButton(context, 'PROVEEDORES', Icons.business, Colors.orange, SupplierView()),
+                  menuButton(context, 'FACTURAS', Icons.receipt, Colors.red, SupplierView()),
               ],
             ),
           ),
         ],
       ),
       // Barra de navegación inferior
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Inicio',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.view_module),
-            label: 'Módulos',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Perfil',
-          ),
-        ],
-        selectedItemColor: Colors.teal,
-      ),
     );
   }
 
   // Widget para crear los botones del menú
-  Widget menuButton(
-      BuildContext context, String text, IconData icon, Color color) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: color, // Usar backgroundColor en lugar de primary
-          padding: EdgeInsets.all(16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-        ),
+  Widget menuButton(BuildContext context, String title, IconData icon, Color color, Widget page) {
+  return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => page), // Navega a la página especificada
+        );
+      },
+      child: Card(
+        color: color,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, size: 50, color: Colors.white),
-            SizedBox(height: 8),
-            Text(
-              text,
-              style: TextStyle(fontSize: 18, color: Colors.white),
-            ),
+            SizedBox(height: 10),
+            Text(title, style: TextStyle(color: Colors.white, fontSize: 18)),
           ],
         ),
       ),
