@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:prodtrack/pages/home_page.dart';
+import 'package:prodtrack/pages/index_pages.dart';
 import 'package:prodtrack/pages/login_page.dart';
 import 'package:prodtrack/services/firebase_service.dart';
 
@@ -43,7 +43,7 @@ class AuthController extends GetxController {
 
         // Guardar las credenciales localmente incluyendo todos los datos adicionales.
         await _saveCredentials(email, password, name, lastName, id);
-        Get.offAll(() => HomePage()); // Redirigir a la página de inicio.
+        Get.offAll(() => indexPages()); // Redirigir a la página de inicio.
       } else {
         Get.snackbar("Error", "No se pudo registrar el usuario");
       }
@@ -66,7 +66,7 @@ class AuthController extends GetxController {
         user.value = loggedInUser; // Guardar el usuario autenticado.
         await _saveCredentials(email, password, "", "",
             ""); // Guardar las credenciales localmente.
-        Get.offAll(() => HomePage()); // Redirigir a la página de inicio.
+        Get.offAll(() => indexPages()); // Redirigir a la página de inicio.
       } else {
         Get.snackbar("Error", "No se pudo iniciar sesión");
       }

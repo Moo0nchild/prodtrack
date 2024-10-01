@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:prodtrack/pages/home_page.dart';
 import 'package:prodtrack/pages/reports_pages.dart';
@@ -16,11 +15,7 @@ class _indexPagesState extends State<indexPages> {
   int _selectedIndex = 0;
 
   // Define las páginas aquí sin necesidad de contexto
-  static List<Widget> _pages = <Widget>[
-    HomePage(),
-    reports(),
-    userPage()
-  ];
+  static List<Widget> _pages = <Widget>[HomePage(), reports(), userPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +25,20 @@ class _indexPagesState extends State<indexPages> {
       ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: const Color(0xFFdcdcdc), // Fondo detrás de la barra de navegación
-        buttonBackgroundColor: const Color(0xFF939393), // Fondo del botón activo
+        backgroundColor:
+            const Color(0xFFdcdcdc), // Fondo detrás de la barra de navegación
+        buttonBackgroundColor:
+            const Color(0xFF939393), // Fondo del botón activo
         color: const Color(0xFF939393), // Color de la barra de navegación
-        animationDuration: const Duration(milliseconds: 300), // Ajuste del tiempo de animación
+        animationDuration:
+            const Duration(milliseconds: 300), // Ajuste del tiempo de animación
         animationCurve: Curves.easeInOut, // Añadir curva de animación suave
         height: 60, // Ajustar la altura del navbar para dar más espacio
-        
+
         items: const [
-          Icon(Icons.home, size: 40, color: Colors.black), // Ajustar el tamaño y color del icono
+          Icon(Icons.home,
+              size: 40,
+              color: Colors.black), // Ajustar el tamaño y color del icono
           Icon(Icons.insert_chart, size: 40, color: Colors.black),
           Icon(Icons.person, size: 40, color: Colors.black),
         ],
