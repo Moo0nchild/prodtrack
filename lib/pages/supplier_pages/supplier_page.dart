@@ -14,16 +14,16 @@ class SupplierView extends StatefulWidget {
 }
 
 class _SupplierViewState extends State<SupplierView> {
-  final SupplierController supplierController = Get.put(SupplierController()); // Controlador
+  final SupplierController supplierController =
+      Get.put(SupplierController()); // Controlador
   Supplier newSupplier = Supplier(
       name: 'Proveedor 2',
       phone: '123456789',
       gmail: 'proveedor1@gmail.com',
       webSite: 'www.proveedor1.com',
       address: 'Dirección 123',
-      nit : '1'
-    );
-  TextEditingController _searchController = TextEditingController(); 
+      nit: '1');
+  TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -68,16 +68,18 @@ class _SupplierViewState extends State<SupplierView> {
                 return ListView.builder(
                   itemCount: supplierController.filteredSuppliers.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final supplier = supplierController.filteredSuppliers[index];
+                    final supplier =
+                        supplierController.filteredSuppliers[index];
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10.0, top: 10.0),
                       child: ListTile(
                         onTap: () {
-                            Get.to(() => ModifySupplierView(supplier: supplier));
+                          Get.to(() => ModifySupplierView(supplier: supplier));
                         },
                         title: Text(
                           '${supplier.name} - ${supplier.phone}',
-                          style: const TextStyle(color: Colors.black, fontSize: 20),
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 20),
                         ),
                         leading: avatar(supplier.name),
                         trailing: const Icon(
@@ -127,7 +129,7 @@ class _SupplierViewState extends State<SupplierView> {
       padding: const EdgeInsets.only(right: 5.0, top: 8.0, bottom: 8.0),
       child: ElevatedButton(
         onPressed: () {
-           Get.to(() => CreateSupplierView());
+          Get.to(() => CreateSupplierView());
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFFdcdcdc),
@@ -152,39 +154,46 @@ class _SupplierViewState extends State<SupplierView> {
     );
   }
 
-Widget avatar(String name) {
-  List<String> colors = [
-    "F56217", "F5CC17", "00875E", "04394E", "9C27B0", "E91E63", "3F51B5", "4CAF50",
-  ];
+  Widget avatar(String name) {
+    List<String> colors = [
+      "F56217",
+      "F5CC17",
+      "00875E",
+      "04394E",
+      "9C27B0",
+      "E91E63",
+      "3F51B5",
+      "4CAF50",
+    ];
 
-  Color getColorFromHex(String hexColor) {
-    final hexCode = hexColor.replaceAll("#", "");
-    return Color(int.parse("FF$hexCode", radix: 16));
+    Color getColorFromHex(String hexColor) {
+      final hexCode = hexColor.replaceAll("#", "");
+      return Color(int.parse("FF$hexCode", radix: 16));
+    }
+
+    // Obtener la letra inicial y convertirla a mayúscula
+    String firstLetter = name.isNotEmpty ? name[0].toUpperCase() : 'A';
+
+    // Calcular el índice basado en la letra inicial (A=0, B=1, ..., Z=25)
+    int colorIndex =
+        (firstLetter.codeUnitAt(0) - 'A'.codeUnitAt(0)) % colors.length;
+
+    return CircleAvatar(
+      child: Text(
+        firstLetter,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 32,
+        ),
+      ),
+      backgroundColor: getColorFromHex(colors[colorIndex]),
+      radius: 30,
+    );
   }
 
-  // Obtener la letra inicial y convertirla a mayúscula
-  String firstLetter = name.isNotEmpty ? name[0].toUpperCase() : 'A';
-
-  // Calcular el índice basado en la letra inicial (A=0, B=1, ..., Z=25)
-  int colorIndex = (firstLetter.codeUnitAt(0) - 'A'.codeUnitAt(0)) % colors.length;
-
-  return CircleAvatar(
-    child: Text(
-      firstLetter,
-      style: const TextStyle(
-        color: Colors.white,
-        fontSize: 32,
-      ),
-    ),
-    backgroundColor: getColorFromHex(colors[colorIndex]),
-    radius: 30,
-  );
-}
-
   void printSupplier(Supplier supplier) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(supplier.id.toString())),
-      );
-  
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(supplier.id.toString())),
+    );
   }
 }
