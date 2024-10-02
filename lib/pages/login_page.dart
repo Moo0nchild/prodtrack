@@ -32,7 +32,7 @@ class LoginPage extends StatelessWidget {
                         Shadow(
                           offset: Offset(2, 2),
                           blurRadius: 3.0,
-                          color: Colors.black.withOpacity(0.5),
+                          color: Colors.black.withOpacity(1.0),
                         ),
                       ],
                     ),
