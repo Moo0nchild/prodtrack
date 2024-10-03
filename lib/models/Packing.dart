@@ -6,7 +6,29 @@ class Packing {
   final String name;
   final Supplier supplier;
   final double price;
-  final Und  und;
+  final Und und;
 
-  Packing(this.name, this.id, this.und, this.supplier, this.price);
+  Packing(this.id, this.name, this.und, this.supplier, this.price);
+
+  // Método toMap
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'supplier': supplier.toMap(),
+      'price': price,
+      'und': und.toMap(),
+    };
+  }
+
+  // Factory constructor fromMap
+  factory Packing.fromMap(Map<String, dynamic> map) {
+    return Packing(
+      map['id'],
+      map['name'],
+      Und.fromMap(map['und']),
+      Supplier.fromMap(map['supplier']),
+      map['price'],
+    );
+  }
 }

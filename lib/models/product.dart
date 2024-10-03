@@ -4,17 +4,51 @@ import 'package:prodtrack/models/Packing.dart';
 import 'package:prodtrack/models/inputDTO.dart';
 
 class Product {
+   String? id; 
   final String name;
   final String description;
   final Box box;
-  final int quantity; //Cantidad de unidades del producto fabricado
-  final Packing packing; //  de envase
+  final int quantity;
+  final Packing packing;
   final List<InputDTO> inputsDTO; 
-  final double priceLabel;  //Precio de etiqueta
-  final double priceLabeled;  //Precio de etiquetado
+  final double priceLabel;  
+  final double priceLabeled;  
 
+  // Constructor normal
+  Product(this.id, this.name, this.description, this.quantity, this.packing, this.box, this.inputsDTO, this.priceLabel, this.priceLabeled);
 
-  Product(this.name, this.description, this.quantity,this.packing,this.box,  this.inputsDTO, this.priceLabel, this.priceLabeled);
+  // Constructor adicional que permite asignar el ID de Firestore
+  Product.withId(this.id, this.name, this.description, this.quantity, this.packing, this.box, this.inputsDTO, this.priceLabel, this.priceLabeled);
+
+  // Método para convertir un objeto Product a un Map<String, dynamic>
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'box': box.toMap(), 
+      'quantity': quantity,
+      'packing': packing.toMap(),
+      'inputsDTO': inputsDTO.map((input) => input.toMap()).toList(), 
+      'priceLabel': priceLabel,
+      'priceLabeled': priceLabeled,
+    };
+  }
+
+  // Factory constructor para crear un Product a partir de un Map<String, dynamic>
+  factory Product.fromMap(Map<String, dynamic> map) {
+    return Product(
+      null, // No asignamos id aquí
+      map['name'],
+      map['description'],
+      map['quantity'],
+      Packing.fromMap(map['packing']), 
+      Box.fromMap(map['box']), 
+      (map['inputsDTO'] as List).map((input) => InputDTO.fromMap(input)).toList(), 
+      map['priceLabel'],
+      map['priceLabeled'],
+    );
+  }
 
 
  //Precio total del producto fabricado (ejemplo: 140 Litros de esencia de kola valen $500.000)

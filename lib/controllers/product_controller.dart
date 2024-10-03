@@ -1,53 +1,62 @@
 import 'package:prodtrack/models/product.dart';
-import 'package:prodtrack/services/product_service/product_service.dart';
+import 'package:prodtrack/services/product_service.dart';
+import 'package:get/get.dart';
 
-class ProductController {
+class ProductController extends GetxController{
   final ProductService _productService = ProductService();
+  RxList<Product> notes = <Product>[].obs;        
+  RxList<Product> filteredNotes = <Product>[].obs;   
+  @override
+  void onInit() {
+    super.onInit();
+    fetchProdcuts();  
+  }
 
-  // Obtener todos los productos
-  Future<List<Product>> getAllProducts() async {
-    try {
-      return await _productService.getAllProducts();
-    } catch (e) {
-      print('Error al obtener productos: $e');
-      return [];
+  void fetchProdcuts() async {
+    notes.value = await _productService.getAllProducts();
+    filteredNotes.value = notes; 
+  }
+
+
+  void filterProducts(String query) {
+    if (query.isEmpty) {
+      // Si el campo de búsqueda está vacío, mostrar todod profuctos
+      filteredNotes.value = notes;
+    } else {
+      // Filtrar los productos
+      filteredNotes.value = notes.where((note) {
+        return note.name.toLowerCase().contains(query.toLowerCase()) ||
+               note.description.toLowerCase().contains(query.toLowerCase());
+      }).toList();
     }
   }
 
-  // Obtener un producto por ID
-  Future<Product?> getProductById(String id) async {
-    try {
-      return await _productService.getProductById(id);
-    } catch (e) {
-      print('Error al obtener el producto: $e');
-      return null;
-    }
+  // Agregar una nota a través del servicio
+  Future<void> addProduct(Product product) async {
+    await _productService.addProduct(product);
+    fetchProdcuts(); 
   }
 
-  // Crear un nuevo producto
-  Future<void> createProduct(Product product) async {
-    try {
-      await _productService.saveProductToFirebase(product);
-    } catch (e) {
-      print('Error al crear producto: $e');
-    }
+  // Actualizar una nota a través del servicio
+  Future<void> updateProduct(Product product) async {
+    await _productService.updateProduct(product);
+    fetchProdcuts();  
   }
 
-  // Actualizar un producto existente
-  Future<void> updateProduct(String id, Product product) async {
-    try {
-      await _productService.updateProduct(id, product);
-    } catch (e) {
-      print('Error al actualizar producto: $e');
-    }
-  }
-
-  // Eliminar un producto por ID
-  Future<void> deleteProduct(String id) async {
-    try {
-      await _productService.deleteProduct(id);
-    } catch (e) {
-      print('Error al eliminar producto: $e');
-    }
+    // Eliminar una nota a través del servicio
+  Future<void> deteleteProduct(String productId) async {
+    await _productService.deleteProduct(productId);
+    fetchProdcuts(); 
   }
 }
+
+
+
+
+
+
+
+
+
+
+

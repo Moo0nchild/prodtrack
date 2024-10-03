@@ -30,14 +30,23 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  curved_navigation_bar: ^1.0.6
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
-  firebase_core: ^3.5.0
+  firebase_auth: ^5.3.1
+  firebase_core: ^3.6.0
+  cloud_firestore: ^5.4.3
+  firebase_storage: ^12.3.2
   get: ^4.6.6
-  cloud_firestore: ^5.4.2
+  get_storage: 
+  image_picker:
+  file_picker:
+  intl:
+  uuid: 
+  path_provider:
+  file:
 
 dev_dependencies:
   flutter_test:
